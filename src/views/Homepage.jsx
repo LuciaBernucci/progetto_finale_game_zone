@@ -4,7 +4,7 @@ import Header from "../components/HomeComponents/Header";
 
 export default function Homepage(){
     const games = useLoaderData();
-    console.log(games);
+    
     
     return(
         <>
