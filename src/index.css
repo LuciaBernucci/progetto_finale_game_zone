@@ -6,6 +6,9 @@
 }
 @plugin "daisyui";
 
+body{
+  background-color:rgba(2, 24, 34, 0.576);
+}
 
 /* SEARCH BAR */ 
 .uiverse-search {

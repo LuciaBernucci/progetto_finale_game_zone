@@ -1,6 +1,5 @@
 import { useLoaderData } from "react-router"
 import GameList from "../components/HomeComponents/GameList";
-import Header from "../components/HomeComponents/Header";
 
 export default function Homepage(){
     const games = useLoaderData();
@@ -8,7 +7,6 @@ export default function Homepage(){
     
     return(
         <>
-          <Header/>
           <GameList>
               {games.map((game)=>{
                 return(
