@@ -14,7 +14,7 @@ export async function getSearchedGames({params}){
 // LOADER PER TUTTI I GENERI DI GIOCO
 
 
-export async function getAllGenres({params}){
+export async function getAllGenres(){
     const promise = await fetch(`https://api.rawg.io/api/genres?key=${import.meta.env.VITE_API_KEY}`);
     const json = await promise.json();
     return json.results;
