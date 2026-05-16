@@ -20,7 +20,7 @@ export default function RegisterPage(){
                 }
             }
         })
-        navigate('/');
+        navigate('/auth/login');
     };
     
     return(

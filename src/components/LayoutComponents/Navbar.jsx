@@ -1,27 +1,22 @@
 import { SlHome } from "react-icons/sl";
+import { PiUserList } from "react-icons/pi";
 import { FaRegUser } from "react-icons/fa";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import routes from "../../routing/routes";
 import { UserContext } from "../../context/UserContext";
 
 
 export default function Navbar(){
-    const[slug, setSlug]= useState("");
+    const[slug, setSlug]= useState();
     const handleChange=(e)=>{
         setSlug(e.target.value);
     };
     const navigate= useNavigate();
-    const { user, profile, signOut } = useContext(UserContext);
-
-    const userLabel = useMemo(() => {
-        if (!user) return "Accedi";
-        const fromProfile = profile?.username || profile?.first_name;
-        const fromMetadata = user?.user_metadata?.username || user?.user_metadata?.first_name;
-        const fromEmail = user?.email ? user.email.split("@")[0] : null;
-        return fromProfile || fromMetadata || fromEmail || "Account";
-    }, [user, profile]);
-
+    const { user,profile, signOut } = useContext(UserContext);
+    
+    
+    
     const handleLogout=async()=>{
         await signOut();
         navigate('/');
@@ -43,10 +38,12 @@ export default function Navbar(){
         <Link className="inline-flex items-center gap-2 relative text-white font-semibold text-[15px] hover:text-fuchsia-400 transition duration-300 after:absolute after:left-0 after:-bottom-2 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-fuchsia-500 after:to-blue-500 after:rounded-full hover:after:w-full after:transition-all after:duration-300" to={routes.home}>
         <SlHome className="text-[18px]" /> Home
         </Link>
-        
-        <a href="#"  className="relative text-zinc-300 font-semibold text-[15px] hover:text-fuchsia-400 transition duration-300 after:absolute after:left-0 after:-bottom-2 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-fuchsia-500 after:to-blue-500 after:rounded-full hover:after:w-full after:transition-all after:duration-300" >
-        Recensioni
-        </a>
+        {user &&(
+           <Link to={routes.profile}  className="inline-flex items-center gap-2 relative text-zinc-300 font-semibold text-[15px] hover:text-fuchsia-400 transition duration-300 after:absolute after:left-0 after:-bottom-2 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-fuchsia-500 after:to-blue-500 after:rounded-full hover:after:w-full after:transition-all after:duration-300" >
+        <PiUserList className="text-[25px]"/>Hi {profile?.username}!
+        </Link>
+        )}
+       
         
         <a href="#" className="relative text-zinc-300 font-semibold text-[15px] hover:text-fuchsia-400 transition duration-300 after:absolute after:left-0 after:-bottom-2 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-fuchsia-500 after:to-blue-500 after:rounded-full hover:after:w-full after:transition-all after:duration-300">
         News
@@ -81,17 +78,13 @@ export default function Navbar(){
         {/* LOGIN BUTTON */}
         <button
         className="btn inline-flex items-center gap-2 px-6 h-11 rounded-xl font-semibold text-white bg-gradient-to-r from-fuchsia-600 to-blue-600 hover:from-fuchsia-500 hover:to-blue-500 transition duration-300 shadow-[0_0_25px_rgba(168,85,247,0.35)] hover:shadow-[0_0_35px_rgba(59,130,246,0.45)]"  popoverTarget="popover-1" style={{ anchorName: "--anchor-1" }} >
-         <FaRegUser className="text-[18px]"/> {userLabel}
+         <FaRegUser className="text-[18px]"/> Accedi
          </button>
            <ul tabIndex={0} className="dropdown menu w-40 rounded-box  shadow-sm  border-fuchsia-400 bg-[#07070B]/80 backdrop-blur-xl  text-white    "
              popover="auto" id="popover-1" style={{ positionAnchor: "--anchor-1" }}>
 
 
-                {user ? (
-                    <li className="hover:text-fuchsia-400 transition duration-300" onClick={handleLogout}>
-                        <p>Logout</p>
-                    </li>
-                ) : (
+                {(!user && (
                     <>
                       <li className="hover:text-fuchsia-400 transition duration-300">
                         <Link to={routes.login}>Login</Link>
@@ -100,6 +93,11 @@ export default function Navbar(){
                         <Link to={routes.register}>Register</Link>
                       </li>
                     </>
+                  
+                )) || (
+                      <li className="hover:text-fuchsia-400 transition duration-300" onClick={handleLogout}>
+                        <p>Logout</p>
+                    </li>
                 )}
            
            </ul>

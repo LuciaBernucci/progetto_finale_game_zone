@@ -10,7 +10,9 @@ export default function Homepage(){
     
     return(
         <>
-        <Header/>
+        <div className="-mx-6 lg:-mx-5">
+          <Header/>
+        </div>
         <section className="grid grid-cols-1 lg:grid-cols-7 gap-4 mt-4">
         <aside className="lg:col-span-2">
         <Sidebar genres={genres}/>

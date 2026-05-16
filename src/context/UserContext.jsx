@@ -34,7 +34,8 @@ getUser();
 
   const signUp=async (newUser)=>{
     await supabase.auth.signUp(newUser);
-    await getUser();
+    // NON SERVE A NIENTE PERCHè IL NOME DELLO USER MI DEVE USCIRE FUORI SOLO DOPO IL LOGIN!
+    // await getUser();
   }
 
   const login= async(loggedUser)=>{
@@ -42,8 +43,19 @@ getUser();
     await getUser();
   }
 
+  const updateProfile = async (newProfile)=>{
+    const {data,error}= await supabase
+    .from('profiles')
+    .update(newProfile)
+    .eq('id',user.id)
+    .select()
+    .single();
+    
+    await getUser();
+  }
+
   return(
-    <UserContext.Provider value={{user,profile,signOut,signUp,login,getUser}}>
+    <UserContext.Provider value={{user,profile,signOut,signUp,login,getUser, updateProfile}}>
         {children}
     </UserContext.Provider>
   )
