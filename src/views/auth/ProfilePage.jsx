@@ -8,6 +8,7 @@ import { supabase } from "../../database/supabase";
 export default function ProfilePage(){
   const {user,profile}= useContext(UserContext);
   const [avatarUrl, setAvatarUrl]= useState();
+  const [userFavourites, setUserFavourites]= useState();
 
   const download_avatar= async()=>{
     if (profile){
@@ -19,8 +20,19 @@ export default function ProfilePage(){
     }
   };
 
+  const get_favourites= async()=>{
+    if(profile){
+      let {data:favourites,error}= await supabase
+      .from("favourites")
+      .select("*")
+      .eq("profile_id",profile.id);
+      setUserFavourites(favourites);
+    }
+  }
+
   useEffect(()=>{
     download_avatar();
+    get_favourites();
   },[profile]);
 
     return(
@@ -42,6 +54,19 @@ export default function ProfilePage(){
 
                 <Link to={routes.profile_settings} className="btn inline-flex items-center gap-2 px-6 mt-4 h-11 rounded-xl  text-amber-100 bg-gradient-to-r from-fuchsia-600 to-blue-600 hover:from-fuchsia-500 hover:to-blue-500 transition duration-300 shadow-[0_0_25px_rgba(168,85,247,0.35)] hover:shadow-[0_0_35px_rgba(59,130,246,0.45)]">Settings</Link>
                 </article>
+              </section>
+              <section className="grid grid-cols-4 gap-4 my-10 w-auto">
+                {userFavourites &&
+                 userFavourites.map((game)=>{
+                  return(
+                    <div className="card bg-fuchsia-500 shadow-sm" key={game.id}>
+                      <div className="card-body">
+                        <h2 className="card-title text-amber-100">{game.game_name}</h2>
+                      </div>
+                    </div>
+                  );
+                 })
+                }
               </section>
               </>
             )}

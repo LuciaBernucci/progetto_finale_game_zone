@@ -1,5 +1,5 @@
-import Footer from "./LayoutComponents/Footer";
-import Navbar from "./LayoutComponents/Navbar";
+import Footer from "../LayoutComponents/Footer";
+import Navbar from "../LayoutComponents/Navbar";
 import { Outlet, useLoaderData } from "react-router";
 
 export default function Layout(){

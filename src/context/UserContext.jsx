@@ -34,8 +34,8 @@ getUser();
 
   const signUp=async (newUser)=>{
     await supabase.auth.signUp(newUser);
-    // NON SERVE A NIENTE PERCHè IL NOME DELLO USER MI DEVE USCIRE FUORI SOLO DOPO IL LOGIN!
-    // await getUser();
+   
+    await getUser();
   }
 
   const login= async(loggedUser)=>{
