@@ -1,13 +1,13 @@
 export default function Footer() {
   return (
     <footer className=" bottom-0 left-0 w-full z-40 border-t border-fuchsia-400 bg-[#07070B]/80 backdrop-blur-xl text-zinc-300">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="flex items-center justify-between gap-6 h-[96px]">
-          <aside className="flex items-center gap-4 min-w-0">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-10">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 py-4 sm:py-0 sm:h-[96px]">
+          <aside className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 min-w-0 text-center sm:text-left">
             <img
               src="/logoNav.png"
               alt="GameZone Logo"
-              className="w-[120px] object-contain"
+              className="w-[90px] sm:w-[120px] object-contain"
             />
             <p className="text-sm text-zinc-400 truncate">
               Copyright © {new Date().getFullYear()} - All rights reserved
