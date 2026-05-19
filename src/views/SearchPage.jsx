@@ -7,7 +7,7 @@ export default function SearchPage(){
    
     return(
         <>
-        <h1 className="text-center text-3xl mt-10">Search by slug: {slug}</h1>
+        <h1 className="text-center text-3xl mt-10 text-amber-100">Search by slug: {slug}</h1>
          <GameList>
            {games?.map((game)=>{
              return(

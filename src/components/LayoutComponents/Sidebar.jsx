@@ -1,19 +1,68 @@
 import {Link} from "react-router";
+import { useNavigate } from "react-router";
+import { IoGameControllerOutline } from "react-icons/io5";
 
-export default function Sidebar({genres}){
-    return(
-        <>
-          <nav className="lg:sticky lg:top-[100px] lg:h-[112vh] overflow-y-auto bg-[#07070B]/80 backdrop-blur-xl rounded-xl border border-fuchsia-400 mt-5">
-           <ul className="px-5 py-5">
-            {genres.map((genre)=>{
-                return(
-                  <li className="mb-7.5 text-zinc-300 font-semibold text-[15px] hover:text-fuchsia-400 transition duration-300 after:absolute after:left-0 after:-bottom-2 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-fuchsia-500 after:to-blue-500 after:rounded-full hover:after:w-full after:transition-all after:duration-300" key={genre.id}>
-                    <Link to={`/genre/${genre.slug}`}>{genre.name}</Link>
-                  </li>
-                );
-            })}
-           </ul>
-          </nav>
-        </>
-    )
+export default function Sidebar({ genres }) {
+  const navigate = useNavigate();
+  
+  
+  return(
+    <>
+  
+    <div className="w-full">
+
+     
+
+      {/* versione mobile con dropdown */}
+      <div className="lg:hidden ">
+        <h2 className="text-2xl text-amber-100 mb-2">Choose a Genre</h2>
+        <select
+          defaultValue=""
+          onChange={(e) => navigate(`/genre/${e.target.value}`)}
+          className="
+            w-full
+            p-3
+            rounded-xl
+            bg-zinc-900
+            text-amber-100
+            border border-fuchsia-400
+            focus:outline-none
+            focus:ring-2 focus:ring-fuchsia-500
+            select select-bordered max-h-80 overflow-y-auto
+          "
+        >
+           <option value="" disabled>
+    Choose a genre
+  </option>
+
+          {genres.map((genre) => (
+            <option key={genre.id} value={genre.slug}>
+              {genre.name}
+            </option>
+          ))}
+        </select>
+          <h1
+    className="flex lg:hidden text-amber-100 text-2xl sm:text-3xl items-center justify-center gap-2 mt-6" >
+    <IoGameControllerOutline />
+    Top 20
+  </h1>
+      </div>
+
+      {/* sidebar versione desktop */}
+      <h2 className="hidden lg:block text-2xl text-amber-100">
+        Choose a Genre
+      </h2>
+      <div className="hidden lg:block mt-5 space-y-2">
+          
+        {genres.map((genre) => (
+          <button key={genre.id} onClick={() => navigate(`/genre/${genre.slug}`)}
+            className="w-full  text-left  px-4 py-2  rounded-xl  text-zinc-300  hover:text-fuchsia-400  hover:bg-fuchsia-500/10  transitio">
+            {genre.name}
+          </button>
+        ))}
+      </div>
+
+    </div>
+     </>
+  )
 }

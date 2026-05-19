@@ -19,8 +19,8 @@ export default function LoginPage(){
        return(
         <>
          <h1 className="text-center text-4xl mt-10 text-amber-100">Login</h1>
-           <main className="h-screen flex justify-center items-center">
-           <form className="p-10  border border-fuchsia-400 bg-[#07070B]/80 backdrop-blur-xl w-1/2"onSubmit={handleSubmit(onSubmit)}>
+           <main className="min-h-screen flex justify-center items-center px-4">
+            <form className=" p-6 sm:p-8 lg:p-10   border border-fuchsia-400  bg-[#07070B]/80  backdrop-blur-xl  w-full sm:w-3/4 lg:w-1/2  rounded-xl"onSubmit={handleSubmit(onSubmit)} >
 
             <input type="email" placeholder="Email" className="input input-lg mb-5 w-full border border-fuchsia-600"
              {...register("email",{required:"This field is required!"})} />
